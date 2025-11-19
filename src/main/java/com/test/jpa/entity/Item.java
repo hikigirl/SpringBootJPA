@@ -23,7 +23,7 @@ public class Item {
     @SequenceGenerator(name = "seqItemGen", allocationSize = 1, sequenceName = "seqItem")
     //@GeneratedValue(strategy = 기본키를 확보하는 방식(DB별로 상이))
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqItemGen")
-    private long seq;
+    private Long seq;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
