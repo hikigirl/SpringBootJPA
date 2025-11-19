@@ -60,11 +60,11 @@
 3. Query DSL: 3~40%, 복잡한 업무
 
 ### CRUD 작업
+1. INSERT
+2. SELECT
+3. UPDATE
+4. DELETE
 
-#### 1. INSERT
-
-#### 2. SELECT
-
-#### 3. UPDATE
-
-#### 4. DELETE
+### 1. Query Method
+- 정해진 키워드 사용 > 메서드명 생성 > 메서드 호출 > 메서드명에 따라 정해진 SQL 생성
+- 정해진 행동 키워드 + 컬럼명

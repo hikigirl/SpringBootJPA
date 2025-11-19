@@ -12,5 +12,27 @@
     <h3 th:if="${dto}" th:text="${dto.name}"></h3>
     <div th:if="${dto}" th:text="${dto}"></div>
     <hr>
+    <div th:text="${count}"></div>
+    <div th:text="${exist}"></div>
+    <hr>
+    <table th:if="${dtoList}">
+        <tr>
+            <th>seq</th>
+            <th>name</th>
+            <th>price</th>
+            <th>color</th>
+            <th>qty</th>
+            <th>description</th>
+        </tr>
+        <tr th:each="dto:${dtoList}" th:object="${dto}">
+            <td th:text="*{seq}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{price}"></td>
+            <td th:text="*{color}"></td>
+            <td th:text="*{qty}"></td>
+            <td th:text="*{description}"></td>
+
+        </tr>
+    </table>
 </body>
 </html>

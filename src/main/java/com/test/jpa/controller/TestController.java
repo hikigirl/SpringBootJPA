@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -124,6 +127,51 @@ public class TestController {
         if(item.isPresent()){
             itemRepository.delete(item.get());
         }
+        return "result";
+    }
+
+    /**
+     * Query Method 사용
+     * @param model
+     * @return
+     */
+    @GetMapping("/m5")
+    public String m5(Model model) {
+//        Optional<Item> item = itemRepository.findById(1L);
+        //findBy + 컬럼명
+        Optional<Item> item = itemRepository.findByName("노트북");
+        //Item item = itemRepository.findByName("노트북");
+        model.addAttribute("dto", item.get().toDTO());
+        return "result";
+    }
+
+    @GetMapping("/m6")
+    public String m6(Model model) {
+        Long count = itemRepository.count();
+        Boolean exist = itemRepository.existsById(1L);
+        model.addAttribute("count", count);
+        model.addAttribute("exist", exist);
+        return "result";
+    }
+    @GetMapping("/m7")
+    public String m7(Model model) {
+
+        //전체 레코드 가져오기
+        List<Item> list = itemRepository.findAll();
+
+        //List<엔티티> >> List<DTO>
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+
+        model.addAttribute("dtoList", dtoList);
+
+        return "result";
+    }
+    @GetMapping("/m8")
+    public String m8(Model model) {
+        //Is, Equals
+        //Optional<Item> item = itemRepository.findByName("노트북");
+        Optional<Item> item = itemRepository.findByNameIs("태블릿");
+        model.addAttribute("dto", item.get().toDTO());
         return "result";
     }
 
