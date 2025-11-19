@@ -1,5 +1,6 @@
 package com.test.jpa.entity;
 
+import com.test.jpa.model.ItemDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,10 +16,11 @@ import lombok.*;
 @NoArgsConstructor //필수) 엔티티 클래스에는 반드시 기본 생성자가 구현되어야 한다.
 @AllArgsConstructor
 @ToString
+@Table(name = "tblItem") //DB에 있는 테이블과 엔티티 클래스를 연결
 public class Item {
     @Id //PK에 붙이는 어노테이션
     @Column(name = "seq") //실제 테이블의 컬럼명, 생략 가능하지만 멤버명과 컬럼명 동일해야 함
-    @SequenceGenerator(name = "seqItem", allocationSize = 1, sequenceName = "seqItemGen")
+    @SequenceGenerator(name = "seqItemGen", allocationSize = 1, sequenceName = "seqItem")
     //@GeneratedValue(strategy = 기본키를 확보하는 방식(DB별로 상이))
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqItemGen")
     private long seq;
@@ -38,4 +40,20 @@ public class Item {
 
     @Column(name = "description", length = 1000)
     private String description;
+
+    /**
+     * Entity - DTO간 변환 메서드
+     * @return DTO 변환 결과
+     */
+    public ItemDTO toDTO() {
+        return ItemDTO.builder()
+                .seq(this.seq)
+                .color(this.color)
+                .name(this.name)
+                .price(this.price)
+                .qty(this.qty)
+                .description(this.description)
+                .build();
+    }
+
 }

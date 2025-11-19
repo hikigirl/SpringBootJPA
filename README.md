@@ -53,3 +53,18 @@
 - Java에서 item 클래스를 조작 -> (개발자는 개입X) -> DB의 tblItem에 반영
 - DTO 역할과 일부 유사
 - DTO는 단순한 상자, Entity는 기능이 많은 상자 정도..
+
+#### JPA 쿼리 실행 방식
+1. Query Method: 3~40%, 단순한 업무
+2. JPQL, Java Persistence Query Language: 1~20%, 1+3번으로 불가능한 경우 사용...
+3. Query DSL: 3~40%, 복잡한 업무
+
+### CRUD 작업
+
+#### 1. INSERT
+
+#### 2. SELECT
+
+#### 3. UPDATE
+
+#### 4. DELETE
