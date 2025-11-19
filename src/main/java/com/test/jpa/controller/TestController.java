@@ -106,6 +106,28 @@ public class TestController {
     }
 
     /**
+     * DELETE
+     * @param model
+     * @param seq
+     * @return
+     */
+    @GetMapping("/m4")
+    public String m4(Model model, @RequestParam("seq") Long seq) {
+        //m3?seq=10
+        //a. 엔티티 직접 생성 후 삭제
+        //b. 엔티티 검색 반환 후 삭제
+//        Item item = Item.builder()
+//                .seq(seq)
+//                .build();
+
+        Optional<Item> item = itemRepository.findById(seq);
+        if(item.isPresent()){
+            itemRepository.delete(item.get());
+        }
+        return "result";
+    }
+
+    /**
      * 템플릿
      * @param model
      * @return

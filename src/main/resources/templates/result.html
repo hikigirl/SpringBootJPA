@@ -8,9 +8,9 @@
 <body>
     <!-- result.html -->
     <h1>Spring Boot <small>JPA</small></h1>
-    <h2>m2, select</h2>
-    <h3 th:text="${dto.name}"></h3>
-    <div th:text="${dto}"></div>
+    <h2 th:if="${dto}">m2, select</h2>
+    <h3 th:if="${dto}" th:text="${dto.name}"></h3>
+    <div th:if="${dto}" th:text="${dto}"></div>
     <hr>
 </body>
 </html>
