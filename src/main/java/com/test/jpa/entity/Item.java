@@ -56,4 +56,20 @@ public class Item {
                 .build();
     }
 
+    /**
+     * Setter 역할을 한다. JPA 환경에서 setter를 그냥 사용하면 update를 무자각으로 할 수도 있기 때문에..
+     * @param name
+     * @param price
+     * @param color
+     * @param qty
+     * @param description
+     */
+    public void update(String name, Integer price, String color, Integer qty, String description) {
+        this.name = name;
+        this.price = price;
+        this.color = color;
+        this.qty = qty;
+        this.description = description;
+    }
+
 }

@@ -78,6 +78,32 @@ public class TestController {
 
         return "result";
     }
+    @GetMapping("/m3")
+    public String m3(Model model, @RequestParam("seq") Long seq) {
+        //m3?seq=10
+        Optional<Item> item = itemRepository.findById(seq);
+        item.ifPresent(value -> model.addAttribute("dto", value.toDTO()));
+        return "m3";
+    }
+    @PostMapping("/m3ok")
+    public String m3ok(Model model, ItemDTO dto) {
+        /*Item item = Item.builder()
+                .seq(3L)
+                .name("태블릿 업데이트")
+                .price(350000)
+                .color("white")
+                .qty(100)
+                .description("업데이트 테스트입니다.")
+                .build();*/
+
+        //Item item = dto.toEntity();
+        Optional<Item> result = itemRepository.findById(dto.getSeq());
+        Item result2 = result.get();
+        result2.update(dto.getName(), dto.getPrice(), dto.getColor(), dto.getQty(), dto.getDescription());
+
+        itemRepository.save(result2);
+        return "result";
+    }
 
     /**
      * 템플릿
