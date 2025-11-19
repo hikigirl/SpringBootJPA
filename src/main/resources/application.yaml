@@ -1,3 +1,21 @@
 spring:
   application:
     name: jpa
+
+  #JDBC(+HikariCp) 설정
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: springboot
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    password: java1234
+  
+  # JPA 설정
+  jpa:
+    database: oracle
+    hibernate:
+      ddl-auto: none
+    show-sql: true #콘솔로그에 SQL 출력(log4jdbc와 비슷한 기능)
+    properties:
+      hibernate:
+        format_sql: true #SQL 포맷팅
+        highlight_sql: true #SQL 색깔 추가
