@@ -170,8 +170,48 @@ public class TestController {
     public String m8(Model model) {
         //Is, Equals
         //Optional<Item> item = itemRepository.findByName("노트북");
-        Optional<Item> item = itemRepository.findByNameIs("태블릿");
-        model.addAttribute("dto", item.get().toDTO());
+        //Optional<Item> item = itemRepository.findByNameIs("태블릿");
+        //model.addAttribute("dto", item.get().toDTO());
+
+        //List<Item> list = itemRepository.findByColor("white");
+        List<Item> list = itemRepository.findByColorIgnoreCase("Yellow");
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
+        //Query did not return a unique result: 4 results were returned
+//        Optional<Item> item = itemRepository.findByColor("yellow");
+//        model.addAttribute("dto", item.get().toDTO());
+
+        return "result";
+    }
+
+    @GetMapping("/m9")
+    public String m9(Model model) {
+        //first, top: 가져올 레코드의 개수를 지정한다. 결과셋 맨 위에서부터 n개
+        // select * from table where rownum <= 3; (ORACLE)
+        // select * from table limit 0, 3; (MYSQL)
+        // select top 3 * from table; (MSSQL)
+
+        //Optional<Item> item = itemRepository.findFirstByColor("white");
+        //Optional<Item> item = itemRepository.findFirstByPrice(55000);
+        //model.addAttribute("dto", item.get().toDTO());
+
+        //List<Item> list = itemRepository.findFirst3ByColor("white");
+        List<Item> list = itemRepository.findTop5ByColor("white");
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+        return "result";
+    }
+
+    @GetMapping("/m10")
+    public String m10(Model model) {
+        //And, Or
+//        List<Item> list = itemRepository.findByNameAndColor("노트북", "black");
+//        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+//        model.addAttribute("dtoList", dtoList);
+        List<Item> list = itemRepository.findByNameOrColor("노트북", "black");
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
         return "result";
     }
 

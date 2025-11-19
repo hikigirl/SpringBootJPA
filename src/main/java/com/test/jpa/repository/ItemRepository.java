@@ -3,6 +3,7 @@ package com.test.jpa.repository;
 import com.test.jpa.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 //엔티티 -> CRUD 구현
@@ -14,4 +15,21 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Optional<Item> findByName(String name);
 
     Optional<Item> findByNameIs(String name);
+
+    List<Item> findByColor(String black);
+//    Optional<Item> findByColor(String black);
+
+    List<Item> findByColorIgnoreCase(String color);
+
+    Optional<Item> findFirstByColor(String color);
+
+    Optional<Item> findFirstByPrice(int i);
+
+    List<Item> findFirst3ByColor(String color);
+
+    List<Item> findTop5ByColor(String color);
+
+    List<Item> findByNameAndColor(String name, String color);
+
+    List<Item> findByNameOrColor(String name, String color);
 }
