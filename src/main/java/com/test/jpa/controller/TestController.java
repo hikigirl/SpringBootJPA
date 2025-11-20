@@ -238,6 +238,22 @@ public class TestController {
 
     @GetMapping("/m12")
     public String m12(Model model) {
+        //isEmpty, isNull
+        //isNotEmpty, isNotNull
+        // - isNull -> null 체크
+        // - isEmpty -> 빈문자열, 집합(size:0) 등을 체크
+        
+        //qty, description 컬럼에 null값이 존재함
+
+        //List<Item> list = itemRepository.findByQtyIsNull();
+        //List<Item> list = itemRepository.findByDescriptionIsNull();
+        //List<Item> list = itemRepository.findByQtyIsNullAndDescriptionIsNull();
+
+        List<Item> list = itemRepository.findByDescriptionIsNotNullAndColorAndPriceGreaterThanEqual("white", 300000);
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
         return "result";
     }
 
