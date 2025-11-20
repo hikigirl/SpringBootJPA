@@ -1,7 +1,10 @@
 package com.test.jpa.controller;
 
+import com.test.jpa.entity.Board;
 import com.test.jpa.entity.User;
 import com.test.jpa.entity.UserInfo;
+import com.test.jpa.model.BoardDTO;
+import com.test.jpa.repository.BoardRepository;
 import com.test.jpa.repository.UserInfoRepository;
 import com.test.jpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,6 +22,7 @@ public class Test2Controller {
     //주입
     private final UserRepository userRepository;
     private final UserInfoRepository userInfoRepository;
+    private final BoardRepository boardRepository;
 
     @GetMapping("/ex01")
     public String ex01(Model model) {
@@ -77,6 +83,22 @@ public class Test2Controller {
         model.addAttribute("userInfo", userInfo.get().toDTO());
         model.addAttribute("user", userInfo.get().getUser().toDTO());
 
+        return "result";
+    }
+
+    @GetMapping("/ex03")
+    public String ex03(Model model) {
+        //1:N 관계
+        // - tblUser : tblBoard
+        // - User : Board
+
+        //Optional<User> user = userRepository.findById("hong");
+        //model.addAttribute("user", user.get().toDTO());
+        //model.addAttribute("boards", user.get().getBoards()); //실제로 작업할 땐 DTO로 꼭 바꿔서 넘기기
+
+        List<Board> list = boardRepository.findAll();
+        List<BoardDTO> blist = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("blist", blist);
         return "result";
     }
 
