@@ -37,6 +37,11 @@
    1. JDBC 설정(DataSource)
    2. JPA 설정
 
+### Query DSL 세팅
+1. 의존성 추가(build.gradle)
+2. 설정 파일 추가
+   1. com.test.jpa.config -> QueryDSLConfig.java: Spring Bean 파일
+
 ### 파일 생성
 #### 기본 키워드 예제
 - `com.test.jpa.controller`
