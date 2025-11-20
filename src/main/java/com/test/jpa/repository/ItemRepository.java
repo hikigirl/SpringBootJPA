@@ -3,6 +3,7 @@ package com.test.jpa.repository;
 import com.test.jpa.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,4 +51,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByQtyIsNullAndDescriptionIsNull();
 
     List<Item> findByDescriptionIsNotNullAndColorAndPriceGreaterThanEqual(String color, int i);
+
+    List<Item> findByColorIn(List<String> colors);
+
+    List<Item> findByColorNotIn(Collection<String> colors);
 }

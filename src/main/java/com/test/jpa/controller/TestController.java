@@ -257,6 +257,21 @@ public class TestController {
         return "result";
     }
 
+    @GetMapping("/m13")
+    public String m13(Model model) {
+        //In, NotIn
+        // 열거형 조건
+        List<String> colors = List.of("white", "black"); //수정 불가능, 읽기 전용(ArrayList)
+
+        //List<Item> list = itemRepository.findByColorIn(colors);
+        List<Item> list = itemRepository.findByColorNotIn(colors);
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
+        return "result";
+    }
+
     /**
      * 템플릿
      * @param model
