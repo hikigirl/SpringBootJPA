@@ -4,13 +4,13 @@ import com.test.jpa.entity.Item;
 import com.test.jpa.model.ItemDTO;
 import com.test.jpa.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -286,6 +286,65 @@ public class TestController {
         //List<Item> list = itemRepository.findByDescriptionContains("기능");
         List<Item> list = itemRepository.findByDescriptionNotContains("기능");
 
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
+        return "result";
+    }
+
+    @GetMapping("/m15")
+    public String m15(Model model) {
+/*
+        정렬
+        OrderBy컬럼명Asc
+        OrderBy컬럼명Desc
+
+        다중 정렬
+        OrderBy컬럼명Asc컬럼명Desc
+*/
+        //List<Item> list = itemRepository.findAll();
+        //List<Item> list = itemRepository.findAllByOrderByNameAsc();
+        //List<Item> list = itemRepository.findAllByOrderByNameDesc();
+        //List<Item> list = itemRepository.findByColorOrderByPriceAsc("black");
+        List<Item> list = itemRepository.findAllByOrderByColorAscPriceDesc();
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+        return "result";
+    }
+
+    @GetMapping("/m15_1")
+    public String m15_1(Model model, @RequestParam("price") Integer price, @RequestParam("order") String orderString) {
+
+        // m15_1?price=300000
+        // m15_1?price=300000&order=asc
+        // m15_1?price=300000&order=desc
+
+        //List<Item> list = itemRepository.findByPriceGreaterThan(price);
+        //List<Item> list = itemRepository.findByPriceGreaterThanOrderByPriceAsc(price);
+        //List<Item> list = itemRepository.findByPriceGreaterThanOrderByPriceDesc(price);
+
+        //List<Item> list = itemRepository.findByPriceGreaterThan(Sort.by("price"), price);
+        Sort.Direction order = Sort.Direction.ASC;
+        if (orderString.equals("desc")) {
+            order = Sort.Direction.DESC;
+        }
+
+        List<Item> list = itemRepository.findByPriceGreaterThan(Sort.by(order, "price"), price);
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+        return "result";
+    }
+    
+    @GetMapping("/m16")
+    public String m16(Model model) {
+        //정렬 - 다른 방식
+
+        //List<Item> list = itemRepository.findAllByOrderByPriceAsc();
+        //List<Item> list = itemRepository.findAll(Sort.by("price")); //asc
+
+        List<Item> list = itemRepository.findAll(Sort.by(Sort.Direction.DESC, "price")); //desc
 
         List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
         model.addAttribute("dtoList", dtoList);
@@ -293,6 +352,25 @@ public class TestController {
         return "result";
     }
 
+    @GetMapping("/m17")
+    public String m17(Model model) {
+
+        //List<Item> list = itemRepository.findAll(Sort.by("color", "price"));
+        List<Item> list = itemRepository.findAll(Sort.by(
+                Sort.Order.asc("color"),
+                Sort.Order.desc("price")
+        ));
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+        return "result";
+    }
+
+    @GetMapping("/m18")
+    public String m18(Model model) {
+        //페이징
+        return "result";
+    }
     /**
      * 템플릿
      * @param model

@@ -1,6 +1,7 @@
 package com.test.jpa.repository;
 
 import com.test.jpa.entity.Item;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
@@ -34,7 +35,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByNameOrColor(String name, String color);
 
-    List<Item> findByPriceGreaterThan(int i);
+    List<Item> findByPriceGreaterThan(Sort price, int i);
 
     List<Item> findByPriceGreaterThanEqual(Integer price);
 
@@ -63,4 +64,18 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByDescriptionContains(String description);
 
     List<Item> findByDescriptionNotContains(String description);
+
+    List<Item> findAllByOrderByNameAsc();
+
+    List<Item> findAllByOrderByNameDesc();
+
+    List<Item> findByColorOrderByPriceAsc(String black);
+
+    List<Item> findAllByOrderByColorAscPriceDesc();
+
+    List<Item> findByPriceGreaterThanOrderByPriceAsc(Integer price);
+
+    List<Item> findByPriceGreaterThanOrderByPriceDesc(Integer price);
+
+    List<Item> findAllByOrderByPriceAsc();
 }
