@@ -125,7 +125,7 @@ public class Test2Controller {
         return "result";
     }
 
-    
+
     /**
      * 템플릿
      * @param model

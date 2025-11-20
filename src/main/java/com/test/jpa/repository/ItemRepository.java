@@ -1,8 +1,11 @@
 package com.test.jpa.repository;
 
 import com.test.jpa.entity.Item;
+import com.test.jpa.model.ItemDTO;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -78,4 +81,22 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByPriceGreaterThanOrderByPriceDesc(Integer price);
 
     List<Item> findAllByOrderByPriceAsc();
+
+    //JPQL
+    //select * from tblItem
+    //@Query("select i from Item as i")
+    @Query(value = "select * from tblItem", nativeQuery = true)
+    List<Item> n01();
+
+    @Query("select i.name from Item as i")
+    List<String> n02();
+
+    //모든 컬럼에는 alias를 명시해야한다
+//    @Query("select i from Item as i where i.color = ?1")
+//    List<Item> n03(String color);
+    @Query("select i from Item as i where i.color = :color")
+    List<Item> n03(@Param(value="color") String color);
+
+    @Query("select i from Item as i where i.color= :#{#dto.color} and i.price>=:#{#dto.price}")
+    List<Item> n04(@Param(value="dto")ItemDTO dto);
 }
