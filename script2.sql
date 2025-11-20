@@ -136,3 +136,10 @@ insert into tblTagging (seq, tseq, bseq) values (9, 4, 8);
 insert into tblTagging (seq, tseq, bseq) values (10, 4, 9);
 
 commit;
+
+select * from tblUser;
+select * from tblUserInfo;
+select * from tblBoard;
+select * from tblComment;
+select * from tblTag;
+select * from tblTagging;

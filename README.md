@@ -38,16 +38,44 @@
    2. JPA 설정
 
 ### 파일 생성
+#### 기본 키워드 예제
 - `com.test.jpa.controller`
   - `TestController.java`
 - `com.test.jpa.entity`
-  - - `Item.java`
+  - `Item.java`
 - `com.test.jpa.model`
   - `ItemDTO.java`
 - `com.test.jpa.repository`
   - `ItemRepository.java`(I)
 - `templates`: `result.html`
-- 
+
+---
+#### 관계 차수가 다양한 경우의 예제
+- `com.test.jpa.controller`
+  - `TestController.java`
+- `com.test.jpa.entity`
+  - `User.java`
+  - `UserInfo.java`
+  - `Board.java`
+  - `Comment.java`
+  - `Tag.java`
+  - `Tagging.java`
+- `com.test.jpa.repository`(Interface)
+  - `UserRepository.java`
+  - `UserInfoRepository.java`
+  - `BoardRepository.java`
+  - `CommentRepository.java`
+  - `TagRepository.java`
+  - `TaggingRepository.java`
+- `com.test.jpa.model`
+  - `UserDTO.java`
+  - `UserInfoDTO.java`
+  - `BoardDTO.java`
+  - `CommentDTO.java`
+  - `TagDTO.java`
+  - `TaggingDTO.java`
+- `templates`: `result.html`
+
 #### 엔티티 클래스
 - 역할: tblItem 테이블을 자바와 중계해주는 역할
 - Java에서 item 클래스를 조작 -> (개발자는 개입X) -> DB의 tblItem에 반영

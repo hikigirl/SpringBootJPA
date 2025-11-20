@@ -4,8 +4,6 @@ import com.test.jpa.entity.Item;
 import com.test.jpa.model.ItemDTO;
 import com.test.jpa.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +24,6 @@ import java.util.stream.Collectors;
 public class TestController {
     //주입
     private final ItemRepository itemRepository;
-    private static final Logger log = LoggerFactory.getLogger(TestController.class);
 
     // TBLITEM의 CRUD 기능
     @GetMapping("/m1")
