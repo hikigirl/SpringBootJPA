@@ -49,7 +49,6 @@
   - `ItemRepository.java`(I)
 - `templates`: `result.html`
 
----
 #### 관계 차수가 다양한 경우의 예제
 - `com.test.jpa.controller`
   - `TestController.java`
@@ -93,6 +92,10 @@
 3. UPDATE
 4. DELETE
 
-### 1. Query Method
+### Query Method
 - 정해진 키워드 사용 > 메서드명 생성 > 메서드 호출 > 메서드명에 따라 정해진 SQL 생성
 - 정해진 행동 키워드 + 컬럼명
+
+### JPA에서 테이블 간의 관계를 표현하기
+- 엔티티 - 엔티티간에 인식시키는 법 
+- 부모 객체or자식 객체를 멤버변수로 둔다

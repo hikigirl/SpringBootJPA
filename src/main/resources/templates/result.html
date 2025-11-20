@@ -11,10 +11,10 @@
     <h2 th:if="${dto}">m2, select</h2>
     <h3 th:if="${dto}" th:text="${dto.name}"></h3>
     <div th:if="${dto}" th:text="${dto}"></div>
-    <hr>
+
     <div th:text="${count}"></div>
     <div th:text="${exist}"></div>
-    <hr>
+
     <table th:if="${dtoList}">
         <tr>
             <th>seq</th>
@@ -35,5 +35,10 @@
         </tr>
     </table>
     <div th:if="${dtoList}" th:utext="${temp}"></div>
+
+    <!-- /m20 -->
+    <h3 th:if="${user}" th:text="${user.name}"></h3>
+    <div th:if="${user}" th:text="${user}"></div>
+    <div th:if="${userInfo}" th:text="${userInfo}"></div>
 </body>
 </html>

@@ -1,4 +1,8 @@
 package com.test.jpa.repository;
 
-public interface UserInfoRepository {
+import com.test.jpa.entity.UserInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserInfoRepository extends JpaRepository<UserInfo, String> {
+
 }
