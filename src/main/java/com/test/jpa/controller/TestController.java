@@ -4,7 +4,13 @@ import com.test.jpa.entity.Item;
 import com.test.jpa.model.ItemDTO;
 import com.test.jpa.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +26,7 @@ import java.util.stream.Collectors;
 public class TestController {
     //주입
     private final ItemRepository itemRepository;
+    private static final Logger log = LoggerFactory.getLogger(TestController.class);
 
     // TBLITEM의 CRUD 기능
     @GetMapping("/m1")
@@ -369,6 +376,84 @@ public class TestController {
     @GetMapping("/m18")
     public String m18(Model model) {
         //페이징
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        //List 대신 Page
+        Page<Item> list = itemRepository.findAll(pageRequest);
+
+        //Page 배열 - 페이징과 관련된 여러 정보를 제공
+        System.out.println(list.getNumber());
+        System.out.println(list.getNumberOfElements());
+        System.out.println(list.getTotalElements());
+        System.out.println(list.getTotalPages());
+        System.out.println(list.getSize());
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+        return "result";
+    }
+
+    @GetMapping("/m19_1")
+    public String m19_1(Model model,
+                      @RequestParam(name="page", required = false, defaultValue = "1") Integer page) {
+        page--;
+        PageRequest pageRequest = PageRequest.of(page, 10);
+
+        Page<Item> list = itemRepository.findAll(pageRequest);
+
+        //페이지 바
+        String temp = "";
+        for (int i=1; i<=list.getTotalPages(); i++) {
+            temp += """
+                    <a href="/m19_1?page=%d">%d</a>
+                    """.formatted(i, i);
+        }
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+
+        model.addAttribute("temp", temp);
+        model.addAttribute("dtoList", dtoList);
+        return "result";
+    }
+
+    @GetMapping("/m19")
+    public String m19(Model model, @PageableDefault(size = 10) Pageable pageable) {
+        // 페이징 (다른 스타일)
+        // 이전/다음페이지
+        
+        //PageRequest : 직접 생성
+        //Pageable : 매개변수(page, size, sort)
+
+        //http://localhost:8080/m19
+        //http://localhost:8080/m19?page=1
+        //http://localhost:8080/m19?page=2
+        //http://localhost:8080/m19?page=3
+
+        Page<Item> list = itemRepository.findAll(pageable);
+        System.out.println("page 관련 로그");
+        System.out.println(list.getNumber());
+        System.out.println(list.getTotalPages());
+        System.out.println(list.hasContent());
+        System.out.println(list.hasNext());
+        System.out.println(list.hasPrevious());
+        System.out.println(list.nextOrLastPageable());
+        System.out.println(list.nextPageable());
+        System.out.println(list.previousOrFirstPageable());
+        System.out.println(list.previousPageable());
+        System.out.println(list.isFirst());
+        System.out.println(list.isLast());
+
+        String temp = "";
+        temp += """
+                <a href="/m19?page=%d">이전 페이지</a>
+                """.formatted(list.previousOrFirstPageable().getPageNumber());
+        temp += """
+                <a href="/m19?page=%d">다음 페이지</a>
+                """.formatted(list.nextOrLastPageable().getPageNumber());
+        model.addAttribute("temp", temp);
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
         return "result";
     }
     /**
