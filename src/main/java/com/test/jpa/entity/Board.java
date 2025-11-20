@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tblBoard")
 @Getter
@@ -33,6 +35,10 @@ public class Board {
     @ManyToOne
     @JoinColumn(name = "id")
     private User user; //사용자 ID(FK)
+
+    //Board to Tagging -> 일대다
+    @OneToMany(mappedBy = "board")
+    private List<Tagging> taggings;
 
     //엔티티를 DTO로 변환, User에서 ID만 꺼내서 DTO로 변환한다.
     public BoardDTO toDTO() {

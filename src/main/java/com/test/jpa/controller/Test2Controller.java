@@ -1,10 +1,12 @@
 package com.test.jpa.controller;
 
 import com.test.jpa.entity.Board;
+import com.test.jpa.entity.Tag;
 import com.test.jpa.entity.User;
 import com.test.jpa.entity.UserInfo;
 import com.test.jpa.model.BoardDTO;
 import com.test.jpa.repository.BoardRepository;
+import com.test.jpa.repository.TagRepository;
 import com.test.jpa.repository.UserInfoRepository;
 import com.test.jpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class Test2Controller {
     private final UserRepository userRepository;
     private final UserInfoRepository userInfoRepository;
     private final BoardRepository boardRepository;
+    private final TagRepository tagRepository;
 
     @GetMapping("/ex01")
     public String ex01(Model model) {
@@ -102,6 +105,27 @@ public class Test2Controller {
         return "result";
     }
 
+    @GetMapping("/ex04")
+    public String ex04(Model model) {
+        // 1:N N:1 => N:N
+        Optional<Board> board = boardRepository.findById(10L);
+        System.out.println("-----태그 확인-----");
+        System.out.println(board);
+        System.out.println(board.get().getTaggings());
+        System.out.println(board.get().getTaggings().get(0).getTag().getTag());
+        System.out.println(board.get().getTaggings().get(1).getTag().getTag());
+
+        model.addAttribute("board", board.get());
+        return "result";
+    }
+    @GetMapping("/ex05")
+    public String ex05(Model model) {
+        List<Tag> tlist = tagRepository.findAll();
+        model.addAttribute("tlist", tlist);
+        return "result";
+    }
+
+    
     /**
      * 템플릿
      * @param model
