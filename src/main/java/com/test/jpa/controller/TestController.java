@@ -214,6 +214,32 @@ public class TestController {
         model.addAttribute("dtoList", dtoList);
         return "result";
     }
+    @GetMapping("/m11")
+    public String m11(Model model) {
+        // 비교 연산 키워드
+        // After, Before : 날짜시간 비교용
+        // GreaterThan(GreaterThanEqual), LessThan(LessThanEqual): 숫자 비교용
+        // Between : 날짜, 숫자 혼용
+        
+        //After, GreaterThan(GreaterThanEqual) : 크다
+        //Before, LessThan(LessThanEqual): 작다
+
+        //List<Item> list = itemRepository.findByPriceGreaterThan(500000);
+        //List<Item> list = itemRepository.findByPriceGreaterThanEqual(550000);
+        //List<Item> list = itemRepository.findByPriceLessThanEqual(550000);
+        //List<Item> list = itemRepository.findByColorAndPriceGreaterThanEqual("white",500000);
+        List<Item> list = itemRepository.findByPriceBetween(300000, 500000); //30만 <= price <= 50만
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
+        return "result";
+    }
+
+    @GetMapping("/m12")
+    public String m12(Model model) {
+        return "result";
+    }
 
     /**
      * 템플릿
