@@ -272,6 +272,27 @@ public class TestController {
         return "result";
     }
 
+    @GetMapping("/m14")
+    public String m14(Model model) {
+        /*
+         * StartsWith, StartingWith
+         * EndsWith, EndingWith
+         * Contains
+         * Like : 사용자 정의형
+        */
+
+        //List<Item> list = itemRepository.findByNameStartsWith("스마트");
+        //List<Item> list = itemRepository.findByNameEndsWith("폰");
+        //List<Item> list = itemRepository.findByDescriptionContains("기능");
+        List<Item> list = itemRepository.findByDescriptionNotContains("기능");
+
+
+        List<ItemDTO> dtoList = list.stream().map(item -> item.toDTO()).collect(Collectors.toList());
+        model.addAttribute("dtoList", dtoList);
+
+        return "result";
+    }
+
     /**
      * 템플릿
      * @param model

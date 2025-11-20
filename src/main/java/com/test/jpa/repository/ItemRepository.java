@@ -36,7 +36,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByPriceGreaterThan(int i);
 
-    List<Item> findByPriceGreaterThanEqual(Integer priceIsGreaterThan);
+    List<Item> findByPriceGreaterThanEqual(Integer price);
 
     List<Item> findByPriceLessThanEqual(int i);
 
@@ -55,4 +55,12 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByColorIn(List<String> colors);
 
     List<Item> findByColorNotIn(Collection<String> colors);
+
+    List<Item> findByNameStartsWith(String name);
+
+    List<Item> findByNameEndsWith(String name);
+
+    List<Item> findByDescriptionContains(String description);
+
+    List<Item> findByDescriptionNotContains(String description);
 }
