@@ -17,6 +17,11 @@ public class ItemDTO {
     private Integer qty;
     private String description;
 
+    public ItemDTO(String name, String color, Integer price) {
+        this.name = name;
+        this.color = color;
+        this.price = price;
+    }
     /**
      * DTO와 Entity 매핑을 위한 메서드
      * @return 엔티티로 변환한 결과

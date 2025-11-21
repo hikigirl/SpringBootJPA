@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-public class TestController {
+public class Test1Controller {
     //주입
     private final ItemRepository itemRepository;
 

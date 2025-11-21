@@ -85,5 +85,75 @@
         </tr>
     </table>
     <div th:text="${names}"></div>
+    <!--n08-->
+    <!--<div th:if="${tuplelist}" th:text="${tuplelist}"></div>-->
+    <table th:if="${tuplelist}">
+        <tr>
+            <th>이름</th>
+            <th>색상</th>
+            <th>가격</th>
+        </tr>
+        <tr th:each="tuple:${tuplelist}">
+            <td th:text="${tuple.get(0, String)}"></td>
+            <td th:text="${tuple.get(1, String)}"></td>
+            <td th:text="${tuple.get(2, Integer)}"></td>
+        </tr>
+    </table>
+    <!--n13-->
+    <div th:if="${num}" th:text="${num}"></div>
+    <!--n13_1-->
+    <div th:if="${tuple}" th:text="${tuple}"></div>
+    <!--n14 ${glist}-->
+    <table th:if="${glist}">
+        <tr>
+            <th>색상</th>
+            <th>개수</th>
+            <th>가격</th>
+        </tr>
+        <tr th:each="tuple:${glist}">
+            <td th:text="${tuple.get(0, String)}"></td>
+            <td th:text="${tuple.get(1, Integer)}"></td>
+            <td th:text="${tuple.get(2, Double)}"></td>
+        </tr>
+    </table>
+    <!--n16 ${ulist}-->
+    <table th:if="${ulist}">
+        <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>주소</th>
+            <th>작성글</th>
+        </tr>
+        <tr th:each="user:${ulist}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <th:block th:if="${user.userInfo}">
+            <td th:text="${user.userInfo.address}"></td>
+            </th:block>
+            <th:block th:unless="${user.userInfo}">
+                <td></td>
+            </th:block>
+            <td class="left">
+                <ul>
+                    <li th:each="board:${user.boards}" th:text="${board.subject}"></li>
+                </ul>
+
+            </td>
+        </tr>
+    </table>
+    <!--n18 ${dlist}-->
+    <table th:if="${dlist}">
+        <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>평균가격</th>
+        </tr>
+        <tr th:each="tuple:${dlist}">
+            <td th:text="${tuple.get(0, String)}"></td>
+            <td th:text="${tuple.get(1, Integer)}"></td>
+            <td th:text="${tuple.get(2, Double)}"></td>
+        </tr>
+    </table>
+
 </body>
 </html>

@@ -71,6 +71,9 @@ create sequence seqTagging start with 11;
 insert into tblUser (id, pw, name) values ('hong', '1111', '홍길동');
 insert into tblUser (id, pw, name) values ('dog', '1111', '강아지');
 insert into tblUser (id, pw, name) values ('cat', '1111', '고양이');
+insert into tblUser (id, pw, name) values ('tiger', '1111', '호랑이');
+insert into tblUser (id, pw, name) values ('lion', '1111', '사자');
+commit;
 
 -- tblUserInfo
 insert into tblUserInfo (id, age, address, gender) values ('hong', '20', '서울시 강남구 대치동', 'm');

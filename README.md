@@ -60,6 +60,7 @@
 1. 의존성 추가(build.gradle)
 2. 설정 파일 추가
    1. com.test.jpa.config -> QueryDSLConfig.java: Spring Bean 파일
+3. 주의점: DTO와 Entity 클래스를 수정한다고 해서 QClass가 바로 동기화되지 않으므로, Gradle - Clean 후에 Gradle - Build 해주면 업데이트 완료됨.
 
 ### 파일 생성
 <details>
